@@ -2,7 +2,7 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
-
+#    - { resource: doctrine_extensions.yml }
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
@@ -68,86 +68,113 @@ doctrine:
 
     orm:
         auto_generate_proxy_classes: '%kernel.debug%'
-        auto_mapping: true
-        naming_strategy: doctrine.orm.naming_strategy.underscore
-        dql:
-            datetime_functions:
-                date: DoctrineExtensions\Query\Mysql\Date
-                date_format: DoctrineExtensions\Query\Mysql\DateFormat
-                dateadd: DoctrineExtensions\Query\Mysql\DateAdd
-                datesub: DoctrineExtensions\Query\Mysql\DateSub
-                datediff: DoctrineExtensions\Query\Mysql\DateDiff
-                day: DoctrineExtensions\Query\Mysql\Day
-                dayname: DoctrineExtensions\Query\Mysql\DayName
-                dayofweek: DoctrineExtensions\Query\Mysql\DayOfWeek
-                dayofyear: DoctrineExtensions\Query\Mysql\DayOfYear
-                div: DoctrineExtensions\Query\Mysql\Div
-                from_unixtime: DoctrineExtensions\Query\Mysql\FromUnixtime
-                last_day: DoctrineExtensions\Query\Mysql\LastDay
-                minute: DoctrineExtensions\Query\Mysql\Minute
-                now: DoctrineExtensions\Query\Mysql\Now
-                month: DoctrineExtensions\Query\Mysql\Month
-                monthname: DoctrineExtensions\Query\Mysql\MonthName
-                second: DoctrineExtensions\Query\Mysql\Second
-                strtodate: DoctrineExtensions\Query\Mysql\StrToDate
-                time: DoctrineExtensions\Query\Mysql\Time
-                timediff: DoctrineExtensions\Query\Mysql\TimeDiff
-                timestampadd: DoctrineExtensions\Query\Mysql\TimestampAdd
-                timestampdiff: DoctrineExtensions\Query\Mysql\TimestampDiff
-                week: DoctrineExtensions\Query\Mysql\Week
-                weekday: DoctrineExtensions\Query\Mysql\WeekDay
-                year: DoctrineExtensions\Query\Mysql\Year
-                yearweek: DoctrineExtensions\Query\Mysql\YearWeek
-                unix_timestamp: DoctrineExtensions\Query\Mysql\UnixTimestamp
+        entity_managers:
+            default:
+                auto_mapping: true
+                naming_strategy: doctrine.orm.naming_strategy.underscore
+                dql:
+                    datetime_functions:
+                        date: DoctrineExtensions\Query\Mysql\Date
+                        date_format: DoctrineExtensions\Query\Mysql\DateFormat
+                        dateadd: DoctrineExtensions\Query\Mysql\DateAdd
+                        datesub: DoctrineExtensions\Query\Mysql\DateSub
+                        datediff: DoctrineExtensions\Query\Mysql\DateDiff
+                        day: DoctrineExtensions\Query\Mysql\Day
+                        dayname: DoctrineExtensions\Query\Mysql\DayName
+                        dayofweek: DoctrineExtensions\Query\Mysql\DayOfWeek
+                        dayofyear: DoctrineExtensions\Query\Mysql\DayOfYear
+                        div: DoctrineExtensions\Query\Mysql\Div
+                        from_unixtime: DoctrineExtensions\Query\Mysql\FromUnixtime
+                        last_day: DoctrineExtensions\Query\Mysql\LastDay
+                        minute: DoctrineExtensions\Query\Mysql\Minute
+                        now: DoctrineExtensions\Query\Mysql\Now
+                        month: DoctrineExtensions\Query\Mysql\Month
+                        monthname: DoctrineExtensions\Query\Mysql\MonthName
+                        second: DoctrineExtensions\Query\Mysql\Second
+                        strtodate: DoctrineExtensions\Query\Mysql\StrToDate
+                        time: DoctrineExtensions\Query\Mysql\Time
+                        timediff: DoctrineExtensions\Query\Mysql\TimeDiff
+                        timestampadd: DoctrineExtensions\Query\Mysql\TimestampAdd
+                        timestampdiff: DoctrineExtensions\Query\Mysql\TimestampDiff
+                        week: DoctrineExtensions\Query\Mysql\Week
+                        weekday: DoctrineExtensions\Query\Mysql\WeekDay
+                        year: DoctrineExtensions\Query\Mysql\Year
+                        yearweek: DoctrineExtensions\Query\Mysql\YearWeek
+                        unix_timestamp: DoctrineExtensions\Query\Mysql\UnixTimestamp
 
-            numeric_functions:
-                acos: DoctrineExtensions\Query\Mysql\Acos
-                asin: DoctrineExtensions\Query\Mysql\Asin
-                atan2: DoctrineExtensions\Query\Mysql\Atan2
-                atan: DoctrineExtensions\Query\Mysql\Atan
-                bit_count: DoctrineExtensions\Query\Mysql\BitCount
-                bit_xor: DoctrineExtensions\Query\Mysql\BitXor
-                ceil: DoctrineExtensions\Query\Mysql\Ceil
-                cos: DoctrineExtensions\Query\Mysql\Cos
-                cot: DoctrineExtensions\Query\Mysql\Cot
-                floor: DoctrineExtensions\Query\Mysql\Floor
-                hour: DoctrineExtensions\Query\Mysql\Hour
-                pi: DoctrineExtensions\Query\Mysql\Pi
-                power: DoctrineExtensions\Query\Mysql\Power
-                quarter: DoctrineExtensions\Query\Mysql\Quarter
-                rand: DoctrineExtensions\Query\Mysql\Rand
-                round: DoctrineExtensions\Query\Mysql\Round
-                sin: DoctrineExtensions\Query\Mysql\Sin
-                std: DoctrineExtensions\Query\Mysql\Std
-                tan: DoctrineExtensions\Query\Mysql\Tan
+                    numeric_functions:
+                        acos: DoctrineExtensions\Query\Mysql\Acos
+                        asin: DoctrineExtensions\Query\Mysql\Asin
+                        atan2: DoctrineExtensions\Query\Mysql\Atan2
+                        atan: DoctrineExtensions\Query\Mysql\Atan
+                        bit_count: DoctrineExtensions\Query\Mysql\BitCount
+                        bit_xor: DoctrineExtensions\Query\Mysql\BitXor
+                        ceil: DoctrineExtensions\Query\Mysql\Ceil
+                        cos: DoctrineExtensions\Query\Mysql\Cos
+                        cot: DoctrineExtensions\Query\Mysql\Cot
+                        floor: DoctrineExtensions\Query\Mysql\Floor
+                        hour: DoctrineExtensions\Query\Mysql\Hour
+                        pi: DoctrineExtensions\Query\Mysql\Pi
+                        power: DoctrineExtensions\Query\Mysql\Power
+                        quarter: DoctrineExtensions\Query\Mysql\Quarter
+                        rand: DoctrineExtensions\Query\Mysql\Rand
+                        round: DoctrineExtensions\Query\Mysql\Round
+                        sin: DoctrineExtensions\Query\Mysql\Sin
+                        std: DoctrineExtensions\Query\Mysql\Std
+                        tan: DoctrineExtensions\Query\Mysql\Tan
 
-            string_functions:
-                ascii: DoctrineExtensions\Query\Mysql\Ascii
-                binary: DoctrineExtensions\Query\Mysql\Binary
-                char_length: DoctrineExtensions\Query\Mysql\CharLength
-                concat_ws: DoctrineExtensions\Query\Mysql\ConcatWs
-                countif: DoctrineExtensions\Query\Mysql\CountIf
-                crc32: DoctrineExtensions\Query\Mysql\Crc32
-                degrees: DoctrineExtensions\Query\Mysql\Degrees
-                field: DoctrineExtensions\Query\Mysql\Field
-                find_in_set: DoctrineExtensions\Query\Mysql\FindInSet
-                group_concat: DoctrineExtensions\Query\Mysql\GroupConcat
-                ifelse: DoctrineExtensions\Query\Mysql\IfElse
-                ifnull: DoctrineExtensions\Query\Mysql\IfNull
-                least: DoctrineExtensions\Query\Mysql\Least
-                lpad: DoctrineExtensions\Query\Mysql\Lpad
-                match_against: DoctrineExtensions\Query\Mysql\MatchAgainst
-                md5: DoctrineExtensions\Query\Mysql\Md5
-                nullif: DoctrineExtensions\Query\Mysql\NullIf
-                radians: DoctrineExtensions\Query\Mysql\Radians
-                regexp: DoctrineExtensions\Query\Mysql\Regexp
-                replace: DoctrineExtensions\Query\Mysql\Replace
-                rpad: DoctrineExtensions\Query\Mysql\Rpad
-                sha1: DoctrineExtensions\Query\Mysql\Sha1
-                sha2: DoctrineExtensions\Query\Mysql\Sha2
-                soundex: DoctrineExtensions\Query\Mysql\Soundex
-                substring_index: DoctrineExtensions\Query\Mysql\SubstringIndex
-                uuid_short: DoctrineExtensions\Query\Mysql\UuidShort
+                    string_functions:
+                        ascii: DoctrineExtensions\Query\Mysql\Ascii
+                        binary: DoctrineExtensions\Query\Mysql\Binary
+                        char_length: DoctrineExtensions\Query\Mysql\CharLength
+                        concat_ws: DoctrineExtensions\Query\Mysql\ConcatWs
+                        countif: DoctrineExtensions\Query\Mysql\CountIf
+                        crc32: DoctrineExtensions\Query\Mysql\Crc32
+                        degrees: DoctrineExtensions\Query\Mysql\Degrees
+                        field: DoctrineExtensions\Query\Mysql\Field
+                        find_in_set: DoctrineExtensions\Query\Mysql\FindInSet
+                        group_concat: DoctrineExtensions\Query\Mysql\GroupConcat
+                        ifelse: DoctrineExtensions\Query\Mysql\IfElse
+                        ifnull: DoctrineExtensions\Query\Mysql\IfNull
+                        least: DoctrineExtensions\Query\Mysql\Least
+                        lpad: DoctrineExtensions\Query\Mysql\Lpad
+                        match_against: DoctrineExtensions\Query\Mysql\MatchAgainst
+                        md5: DoctrineExtensions\Query\Mysql\Md5
+                        nullif: DoctrineExtensions\Query\Mysql\NullIf
+                        radians: DoctrineExtensions\Query\Mysql\Radians
+                        regexp: DoctrineExtensions\Query\Mysql\Regexp
+                        replace: DoctrineExtensions\Query\Mysql\Replace
+                        rpad: DoctrineExtensions\Query\Mysql\Rpad
+                        sha1: DoctrineExtensions\Query\Mysql\Sha1
+                        sha2: DoctrineExtensions\Query\Mysql\Sha2
+                        soundex: DoctrineExtensions\Query\Mysql\Soundex
+                        substring_index: DoctrineExtensions\Query\Mysql\SubstringIndex
+                        uuid_short: DoctrineExtensions\Query\Mysql\UuidShort
+                mappings:
+                    gedmo_translatable:
+                        type: annotation
+                        prefix: Gedmo\Translatable\Entity
+                        dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Translatable/Entity"
+                        alias: GedmoTranslatable # (optional) it will default to the name set for the mapping
+                        is_bundle: false
+                    gedmo_translator:
+                        type: annotation
+                        prefix: Gedmo\Translator\Entity
+                        dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Translator/Entity"
+                        alias: GedmoTranslator # (optional) it will default to the name set for the mapping
+                        is_bundle: false
+                    gedmo_loggable:
+                        type: annotation
+                        prefix: Gedmo\Loggable\Entity
+                        dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Loggable/Entity"
+                        alias: GedmoLoggable # (optional) it will default to the name set for the mapping
+                        is_bundle: false
+                    gedmo_tree:
+                        type: annotation
+                        prefix: Gedmo\Tree\Entity
+                        dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Tree/Entity"
+                        alias: GedmoTree # (optional) it will default to the name set for the mapping
+                        is_bundle: false
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -208,3 +235,27 @@ doctrine_migrations:
   namespace: Application\Migrations
   table_name: migration_versions
   name: Application Migrations
+  
+sonata_block:
+  blocks:
+      # enable the SonataAdminBundle block
+      sonata.admin.block.admin_list:
+          contexts: [admin]
+          
+stof_doctrine_extensions:
+    default_locale: en_US
+
+    # Only used if you activated the Uploadable extension
+    uploadable:
+        # Default file path: This is one of the three ways you can configure the path for the Uploadable extension
+        default_file_path:       "%kernel.root_dir%/../web/uploads"
+
+        # Mime type guesser class: Optional. By default, we provide an adapter for the one present in the HttpFoundation component of Symfony
+        mime_type_guesser_class: Stof\DoctrineExtensionsBundle\Uploadable\MimeTypeGuesserAdapter
+
+        # Default file info class implementing FileInfoInterface: Optional. By default we provide a class which is prepared to receive an UploadedFile instance.
+        default_file_info_class: Stof\DoctrineExtensionsBundle\Uploadable\UploadedFileInfo
+    orm:
+        default: ~
+    mongodb:
+        default: ~
