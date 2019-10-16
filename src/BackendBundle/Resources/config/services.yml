@@ -6,4 +6,10 @@ services:
         class: BackendBundle\Controller\InstrumentAdmin
         arguments: [~, AppBundle\Entity\Instrument, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: Instrument }
+            - { name: sonata.admin, manager_type: orm, label: 'Instrument' }
+            
+     admin.room:
+        class: BackendBundle\Controller\RoomAdmin
+        arguments: [~, AppBundle\Entity\Room, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: 'Room' }

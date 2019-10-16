@@ -9,7 +9,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
-final class InstrumentAdmin extends AbstractAdmin
+final class RoomAdmin extends AbstractAdmin
 {
 
   protected function configureFormFields(FormMapper $formMapper)
@@ -30,7 +30,7 @@ final class InstrumentAdmin extends AbstractAdmin
     $listMapper
         ->addIdentifier('name')
         ->addIdentifier('enabled')
-    ;
+        ;
   }
 
 }

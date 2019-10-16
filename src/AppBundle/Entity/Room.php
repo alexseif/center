@@ -6,12 +6,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
- * Instrument
+ * Room
  *
- * @ORM\Table(name="instrument")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\InstrumentRepository")
+ * @ORM\Table(name="room")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\RoomRepository")
  */
-class Instrument
+class Room
 {
 
   use TimestampableEntity;
@@ -54,7 +54,7 @@ class Instrument
    *
    * @param string $name
    *
-   * @return Instrument
+   * @return Room
    */
   public function setName($name)
   {
@@ -78,7 +78,7 @@ class Instrument
    *
    * @param bool $enabled
    *
-   * @return Instrument
+   * @return Room
    */
   public function setEnabled($enabled)
   {

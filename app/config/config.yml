@@ -73,6 +73,31 @@ doctrine:
             default:
                 auto_mapping: true
                 naming_strategy: doctrine.orm.naming_strategy.underscore
+                mappings:
+                    gedmo_translatable:
+                        type: annotation
+                        prefix: Gedmo\Translatable\Entity
+                        dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Translatable/Entity"
+                        alias: GedmoTranslatable # (optional) it will default to the name set for the mapping
+                        is_bundle: false
+                    gedmo_translator:
+                        type: annotation
+                        prefix: Gedmo\Translator\Entity
+                        dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Translator/Entity"
+                        alias: GedmoTranslator # (optional) it will default to the name set for the mapping
+                        is_bundle: false
+                    gedmo_loggable:
+                        type: annotation
+                        prefix: Gedmo\Loggable\Entity
+                        dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Loggable/Entity"
+                        alias: GedmoLoggable # (optional) it will default to the name set for the mapping
+                        is_bundle: false
+                    gedmo_tree:
+                        type: annotation
+                        prefix: Gedmo\Tree\Entity
+                        dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Tree/Entity"
+                        alias: GedmoTree # (optional) it will default to the name set for the mapping
+                        is_bundle: false
                 dql:
                     datetime_functions:
                         date: DoctrineExtensions\Query\Mysql\Date
@@ -151,31 +176,6 @@ doctrine:
                         soundex: DoctrineExtensions\Query\Mysql\Soundex
                         substring_index: DoctrineExtensions\Query\Mysql\SubstringIndex
                         uuid_short: DoctrineExtensions\Query\Mysql\UuidShort
-                mappings:
-                    gedmo_translatable:
-                        type: annotation
-                        prefix: Gedmo\Translatable\Entity
-                        dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Translatable/Entity"
-                        alias: GedmoTranslatable # (optional) it will default to the name set for the mapping
-                        is_bundle: false
-                    gedmo_translator:
-                        type: annotation
-                        prefix: Gedmo\Translator\Entity
-                        dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Translator/Entity"
-                        alias: GedmoTranslator # (optional) it will default to the name set for the mapping
-                        is_bundle: false
-                    gedmo_loggable:
-                        type: annotation
-                        prefix: Gedmo\Loggable\Entity
-                        dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Loggable/Entity"
-                        alias: GedmoLoggable # (optional) it will default to the name set for the mapping
-                        is_bundle: false
-                    gedmo_tree:
-                        type: annotation
-                        prefix: Gedmo\Tree\Entity
-                        dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Tree/Entity"
-                        alias: GedmoTree # (optional) it will default to the name set for the mapping
-                        is_bundle: false
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -257,6 +257,8 @@ stof_doctrine_extensions:
         # Default file info class implementing FileInfoInterface: Optional. By default we provide a class which is prepared to receive an UploadedFile instance.
         default_file_info_class: Stof\DoctrineExtensionsBundle\Uploadable\UploadedFileInfo
     orm:
-        default: ~
+        default: 
+          sluggable: true
+          timestampable: true 
     mongodb:
         default: ~
