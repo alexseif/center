@@ -14,5 +14,29 @@
 !var/sessions/.gitkeep
 !var/SymfonyRequirements.php
 /vendor/
+
+# Assets and user uploads
 /web/bundles/
+/web/uploads/
+
+# Assets managed by Bower
+/web/assets/vendor/
+
+# PHPUnit
+/app/phpunit.xml
+/phpunit.xml
+
+# Build data
+/build/
+
+# Composer PHAR
+/composer.phar
+
 /nbproject/private/
+/nbproject/configs/DEV.properties
+/backups/*
+!backups/.gitkeep
+
+.buildpath
+.project
+.settings/
