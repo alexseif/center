@@ -40,6 +40,7 @@ final class InstrumentAdmin extends AbstractAdmin
         $formMapper
             ->add('name')
             ->add('enabled')
+            ->add('availableRooms')
         ;
     }
 

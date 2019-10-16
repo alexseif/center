@@ -41,6 +41,7 @@ final class RoomAdmin extends AbstractAdmin
     $formMapper
         ->add('name')
         ->add('enabled')
+        ->add('instruments')
     ;
   }
 
@@ -49,6 +50,7 @@ final class RoomAdmin extends AbstractAdmin
     $showMapper
         ->add('name')
         ->add('enabled')
+        ->add('instruments')
     ;
   }
 

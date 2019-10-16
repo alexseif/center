@@ -40,6 +40,12 @@ class Instrument
   private $enabled;
 
   /**
+   * @ORM\ManyToOne(targetEntity="Room", inversedBy="instruments")
+   * @ORM\JoinColumn(name="room_id", referencedColumnName="id")
+   */
+  private $availableRooms;
+
+  /**
    * Get id.
    *
    * @return int
@@ -95,6 +101,35 @@ class Instrument
   public function getEnabled()
   {
     return $this->enabled;
+  }
+
+  /**
+   * Set availableRooms.
+   *
+   * @param \AppBundle\Entity\Room|null $availableRooms
+   *
+   * @return Instrument
+   */
+  public function setAvailableRooms(\AppBundle\Entity\Room $availableRooms = null)
+  {
+    $this->availableRooms = $availableRooms;
+
+    return $this;
+  }
+
+  /**
+   * Get availableRooms.
+   *
+   * @return \AppBundle\Entity\Room|null
+   */
+  public function getAvailableRooms()
+  {
+    return $this->availableRooms;
+  }
+
+  public function __toString()
+  {
+    return $this->getName();
   }
 
 }
