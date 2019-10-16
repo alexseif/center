@@ -26,9 +26,12 @@ class AppKernel extends Kernel
       new Sonata\AdminBundle\SonataAdminBundle(),
       new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
       new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
+      new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
+      new Sonata\UserBundle\SonataUserBundle(),
+      new UserBundle\UserBundle(),
       new AppBundle\AppBundle(),
-            new BackendBundle\BackendBundle(),
-        ];
+      new BackendBundle\BackendBundle(),
+    ];
 
     if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
       $bundles[] = new Symfony\Bundle\DebugBundle\DebugBundle();

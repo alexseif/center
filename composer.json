@@ -5,7 +5,8 @@
   "autoload": {
     "psr-4": {
       "AppBundle\\": "src/AppBundle",
-      "BackendBundle\\": "src/BackendBundle"
+      "BackendBundle\\": "src/BackendBundle",
+      "UserBundle\\": "src/UserBundle"
     },
     "classmap": [
       "app/AppKernel.php",
@@ -26,14 +27,18 @@
     "doctrine/doctrine-bundle": "^1.6",
     "doctrine/doctrine-migrations-bundle": "^2.0",
     "doctrine/orm": "^2.5",
+    "friendsofsymfony/rest-bundle": "^2.5",
     "friendsofsymfony/user-bundle": "^2.1",
     "gedmo/doctrine-extensions": "^2.4",
     "incenteev/composer-parameter-handler": "^2.0",
+    "nelmio/api-doc-bundle": "^3.4",
     "paragonie/random_compat": "^2.0",
     "sensio/distribution-bundle": "^5.0.19",
     "sensio/framework-extra-bundle": "^5.0.0",
     "sonata-project/admin-bundle": "^3.54",
     "sonata-project/doctrine-orm-admin-bundle": "^3.10",
+    "sonata-project/google-authenticator": "^2.2",
+    "sonata-project/user-bundle": "^4.5",
     "stof/doctrine-extensions-bundle": "^1.3",
     "symfony/monolog-bundle": "^3.1.0",
     "symfony/polyfill-apcu": "^1.0",

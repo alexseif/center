@@ -3,37 +3,69 @@
 security:
     encoders:
         FOS\UserBundle\Model\UserInterface: bcrypt
+        
+    acl:
+        connection: default
 
     role_hierarchy:
-        ROLE_ADMIN:       ROLE_USER
-        ROLE_SUPER_ADMIN: ROLE_ADMIN
+        ROLE_ADMIN:       [ROLE_USER, ROLE_SONATA_ADMIN]
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+        SONATA:
+            - ROLE_SONATA_PAGE_ADMIN_PAGE_EDIT  # if you are using acl then this line must be commented
+
 
     providers:
         fos_userbundle:
             id: fos_user.user_provider.username
 
     firewalls:
-        # disables authentication for assets and the profiler, adapt it according to your needs
+        # Disabling the security for the web debug toolbar, the profiler and Assetic.
         dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
-        main:
-            pattern: ^/
+        # -> custom firewall for the admin area of the URL
+        backend:
+            pattern:            /backend(.*)
+            context:            user
             form_login:
-                provider: fos_userbundle
-                csrf_token_generator: security.csrf.token_manager
-            remember_me:
-                secret:   '%secret%'
-                lifetime: 604800 # 1 week in seconds
-                path:     /
+                provider:       fos_userbundle
+                login_path:     /backend/login
+                use_forward:    false
+                check_path:     /backend/login_check
+                failure_path:   null
+            logout:
+                path:           /backend/logout
+                target:         /backend/login
+            anonymous:          true
 
-            logout:       true
-            anonymous:    true
-            logout_on_user_change: true
+        # -> end custom configuration
+
+        # default login area for standard users
+
+        # This firewall is used to handle the public login area
+        # This part is handled by the FOS User Bundle
+        main:
+            pattern:             .*
+            context:             user
+            form_login:
+                provider:       fos_userbundle
+                login_path:     /login
+                use_forward:    false
+                check_path:     /login_check
+                failure_path:   null
+            logout:             true
+            anonymous:          true
 
     access_control:
-        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/, role: ROLE_ADMIN }
+        # Admin login page needs to be accessed without credential
+        - { path: ^/backend/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/backend/logout$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/backend/login_check$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/backend/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+
+        # Secured part of the site
+        # This config requires being logged for the whole site and having the admin role for the admin part.
+        # Change these rules to adapt them to your needs
+        - { path: ^/backend/, role: [ROLE_ADMIN, ROLE_SONATA_ADMIN] }
+        - { path: ^/.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
