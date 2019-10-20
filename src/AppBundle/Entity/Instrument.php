@@ -42,13 +42,20 @@ class Instrument
 
   /**
    * @ORM\ManyToMany(targetEntity="Room", inversedBy="instruments", cascade={"persist"})
-   * @ORM\JoinTable(name="instrument_room")
+   * @ORM\JoinTable(name="room_instrument")
    */
   private $rooms;
+
+  /**
+   * @ORM\ManyToMany(targetEntity="Tutor", inversedBy="instruments", cascade={"persist"})
+   * @ORM\JoinTable(name="tutor_instrument")
+   */
+  private $tutors;
 
   function __construct()
   {
     $this->rooms = new ArrayCollection();
+    $this->tutors = new ArrayCollection();
   }
 
   /**
@@ -149,6 +156,42 @@ class Instrument
   public function getRooms()
   {
     return $this->rooms;
+  }
+
+  /**
+   * Add tutor.
+   *
+   * @param \AppBundle\Entity\Tutor $tutor
+   *
+   * @return Instrument
+   */
+  public function addTutor(\AppBundle\Entity\Tutor $tutor)
+  {
+    $this->tutors[] = $tutor;
+
+    return $this;
+  }
+
+  /**
+   * Remove tutor.
+   *
+   * @param \AppBundle\Entity\Tutor $tutor
+   *
+   * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+   */
+  public function removeTutor(\AppBundle\Entity\Tutor $tutor)
+  {
+    return $this->tutors->removeElement($tutor);
+  }
+
+  /**
+   * Get tutors.
+   *
+   * @return \Doctrine\Common\Collections\Collection
+   */
+  public function getTutors()
+  {
+    return $this->tutors;
   }
 
   public function __toString()

@@ -42,7 +42,6 @@ class Room
 
   /**
    * @ORM\ManyToMany(targetEntity="Instrument", mappedBy="rooms", cascade={"persist"})
-   * @ORM\JoinTable(name="instrument_room")
    */
   private $instruments;
 

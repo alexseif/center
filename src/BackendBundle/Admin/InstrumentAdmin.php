@@ -29,6 +29,7 @@ final class InstrumentAdmin extends AbstractAdmin
         ->add('name')
         ->add('enabled')
         ->add('rooms')
+        ->add('tutors')
         ->add('_action', null, [
           'actions' => [
             'show' => [],
@@ -47,10 +48,18 @@ final class InstrumentAdmin extends AbstractAdmin
         ->add('rooms', EntityType::class, [
           'class' => \AppBundle\Entity\Room::class,
           'query_builder' => function(\AppBundle\Repository\RoomRepository $er) {
-            return $er->getEnabled();
+            return $er->queryEnabled();
           },
           'multiple' => true
         ])
+        ->add('tutors', EntityType::class, [
+          'class' => \AppBundle\Entity\Tutor::class,
+          'query_builder' => function(\AppBundle\Repository\TutorRepository $er) {
+            return $er->queryEnabled();
+          },
+          'multiple' => true
+        ])
+
     ;
   }
 
@@ -60,6 +69,7 @@ final class InstrumentAdmin extends AbstractAdmin
         ->add('name')
         ->add('enabled')
         ->add('rooms')
+        ->add('tutors')
     ;
   }
 

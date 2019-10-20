@@ -10,5 +10,11 @@ namespace AppBundle\Repository;
  */
 class InstrumentRepository extends \Doctrine\ORM\EntityRepository
 {
-  
+
+  public function queryEnabled()
+  {
+    return $this->createQueryBuilder('i')
+            ->where('i.enabled = true');
+  }
+
 }

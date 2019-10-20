@@ -11,11 +11,10 @@ namespace AppBundle\Repository;
 class RoomRepository extends \Doctrine\ORM\EntityRepository
 {
 
-  public function getEnabled()
+  public function queryEnabled()
   {
     return $this->createQueryBuilder('r')
-        ->where('r.enabled = true');
-//    return $this->findBy(['enabled' => true]);
+            ->where('r.enabled = true');
   }
 
 }

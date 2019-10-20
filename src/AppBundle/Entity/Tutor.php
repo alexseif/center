@@ -40,6 +40,19 @@ class Tutor
   private $enabled;
 
   /**
+   * @ORM\ManyToMany(targetEntity="Instrument", mappedBy="tutors", cascade={"persist"})
+   */
+  private $instruments;
+
+  /**
+   * Constructor
+   */
+  public function __construct()
+  {
+    $this->instruments = new \Doctrine\Common\Collections\ArrayCollection();
+  }
+
+  /**
    * Get id.
    *
    * @return int
@@ -95,6 +108,47 @@ class Tutor
   public function getEnabled()
   {
     return $this->enabled;
+  }
+
+  /**
+   * Add instrument.
+   *
+   * @param \AppBundle\Entity\Instrument $instrument
+   *
+   * @return Tutor
+   */
+  public function addInstrument(\AppBundle\Entity\Instrument $instrument)
+  {
+    $this->instruments[] = $instrument;
+
+    return $this;
+  }
+
+  /**
+   * Remove instrument.
+   *
+   * @param \AppBundle\Entity\Instrument $instrument
+   *
+   * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+   */
+  public function removeInstrument(\AppBundle\Entity\Instrument $instrument)
+  {
+    return $this->instruments->removeElement($instrument);
+  }
+
+  /**
+   * Get instruments.
+   *
+   * @return \Doctrine\Common\Collections\Collection
+   */
+  public function getInstruments()
+  {
+    return $this->instruments;
+  }
+
+  public function __toString()
+  {
+    return $this->getName();
   }
 
 }

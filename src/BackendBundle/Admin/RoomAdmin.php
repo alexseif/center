@@ -9,6 +9,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 final class RoomAdmin extends AbstractAdmin
 {
@@ -43,6 +44,13 @@ final class RoomAdmin extends AbstractAdmin
     $formMapper
         ->add('name')
         ->add('enabled')
+        ->add('instruments', EntityType::class, [
+          'class' => \AppBundle\Entity\Instrument::class,
+          'query_builder' => function(\AppBundle\Repository\InstrumentRepository $er) {
+            return $er->queryEnabled();
+          },
+          'multiple' => true
+        ])
     ;
   }
 
