@@ -41,6 +41,7 @@ class Tutor
 
   /**
    * @ORM\ManyToMany(targetEntity="Instrument", mappedBy="tutors", cascade={"persist"})
+   * @ORM\JoinTable(name="tutor_instrument")
    */
   private $instruments;
 
