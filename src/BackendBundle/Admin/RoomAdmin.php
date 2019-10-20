@@ -18,6 +18,7 @@ final class RoomAdmin extends AbstractAdmin
     $datagridMapper
         ->add('name')
         ->add('enabled')
+        ->add('instruments')
     ;
   }
 
@@ -26,6 +27,7 @@ final class RoomAdmin extends AbstractAdmin
     $listMapper
         ->add('name')
         ->add('enabled')
+        ->add('instruments')
         ->add('_action', null, [
           'actions' => [
             'show' => [],
@@ -41,7 +43,6 @@ final class RoomAdmin extends AbstractAdmin
     $formMapper
         ->add('name')
         ->add('enabled')
-        ->add('instruments')
     ;
   }
 

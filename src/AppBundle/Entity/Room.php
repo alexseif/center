@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Room
@@ -40,7 +41,8 @@ class Room
   private $enabled;
 
   /**
-   * @ORM\OneToMany(targetEntity="Instrument", mappedBy="availableRooms", cascade={"persist"})
+   * @ORM\ManyToMany(targetEntity="Instrument", mappedBy="rooms", cascade={"persist"})
+   * @ORM\JoinTable(name="instrument_room")
    */
   private $instruments;
 
@@ -49,7 +51,7 @@ class Room
    */
   public function __construct()
   {
-    $this->instruments = new \Doctrine\Common\Collections\ArrayCollection();
+    $this->instruments = new ArrayCollection();
   }
 
   /**
@@ -119,8 +121,10 @@ class Room
    */
   public function addInstrument(\AppBundle\Entity\Instrument $instrument)
   {
-    $instrument->setAvailableRooms($this);
-    $this->instruments[] = $instrument;
+    if (!$this->instruments->contains($instrument)) {
+      $this->instruments[] = $instrument;
+      $instrument->addRoom($this);
+    }
     return $this;
   }
 
@@ -133,7 +137,11 @@ class Room
    */
   public function removeInstrument(\AppBundle\Entity\Instrument $instrument)
   {
-    return $this->instruments->removeElement($instrument);
+    if ($this->instruments->contains($instrument)) {
+      $this->instruments->removeElement($instrument);
+      $instrument->removeRoom($this);
+    }
+    return $this;
   }
 
   /**

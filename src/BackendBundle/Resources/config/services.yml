@@ -3,13 +3,6 @@ services:
 #        class: BackendBundle\Example
 #        arguments: ["@service_id", "plain_value", "%parameter%"]
             
-    backend.admin.tutor:
-        class: BackendBundle\Admin\TutorAdmin
-        arguments: [~, AppBundle\Entity\Tutor, BackendBundle\Controller\TutorAdminController]
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: admin, label: Tutor }
-        public: true
-
     backend.admin.room:
         class: BackendBundle\Admin\RoomAdmin
         arguments: [~, AppBundle\Entity\Room, BackendBundle\Controller\RoomAdminController]
@@ -22,4 +15,11 @@ services:
         arguments: [~, AppBundle\Entity\Instrument, BackendBundle\Controller\InstrumentAdminController]
         tags:
             - { name: sonata.admin, manager_type: orm, group: admin, label: Instrument }
+        public: true
+
+    backend.admin.tutor:
+        class: BackendBundle\Admin\TutorAdmin
+        arguments: [~, AppBundle\Entity\Tutor, BackendBundle\Controller\TutorAdminController]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Tutor }
         public: true

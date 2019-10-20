@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Instrument
@@ -40,10 +41,15 @@ class Instrument
   private $enabled;
 
   /**
-   * @ORM\ManyToOne(targetEntity="Room", inversedBy="instruments")
-   * @ORM\JoinColumn(name="room_id", referencedColumnName="id")
+   * @ORM\ManyToMany(targetEntity="Room", inversedBy="instruments", cascade={"persist"})
+   * @ORM\JoinTable(name="instrument_room")
    */
-  private $availableRooms;
+  private $rooms;
+
+  function __construct()
+  {
+    $this->rooms = new ArrayCollection();
+  }
 
   /**
    * Get id.
@@ -104,27 +110,45 @@ class Instrument
   }
 
   /**
-   * Set availableRooms.
+   * Add room.
    *
-   * @param \AppBundle\Entity\Room|null $availableRooms
+   * @param \AppBundle\Entity\Room $room
    *
    * @return Instrument
    */
-  public function setAvailableRooms(\AppBundle\Entity\Room $availableRooms = null)
+  public function addRoom(\AppBundle\Entity\Room $room)
   {
-    $this->availableRooms = $availableRooms;
-
+    if (!$this->rooms->contains($room)) {
+      $this->rooms[] = $room;
+      $room->addInstrument($this);
+    }
     return $this;
   }
 
   /**
-   * Get availableRooms.
+   * Remove room.
    *
-   * @return \AppBundle\Entity\Room|null
+   * @param \AppBundle\Entity\Room $room
+   *
+   * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
    */
-  public function getAvailableRooms()
+  public function removeRoom(\AppBundle\Entity\Room $room)
   {
-    return $this->availableRooms;
+    if ($this->rooms->contains($room)) {
+      $this->rooms->removeElement($room);
+      $room->removeRoom($this);
+    }
+    return $this;
+  }
+
+  /**
+   * Get rooms.
+   *
+   * @return \Doctrine\Common\Collections\Collection
+   */
+  public function getRooms()
+  {
+    return $this->rooms;
   }
 
   public function __toString()
