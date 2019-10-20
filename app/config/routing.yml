@@ -36,3 +36,9 @@ sonata_user_admin_security:
 sonata_user_admin_resetting:
     resource: '@SonataUserBundle/Resources/config/routing/admin_resetting.xml'
     prefix: /backend/resetting
+    
+backend:
+    resource: '@BackendBundle/Controller/'
+    type: annotation
+    schemes:  ['%httpprotocol%']
+    prefix: /backend
