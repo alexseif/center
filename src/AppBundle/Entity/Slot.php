@@ -218,4 +218,9 @@ class Slot
     return $this->tutor;
   }
 
+  public function __toString()
+  {
+    return $this->getName();
+  }
+
 }

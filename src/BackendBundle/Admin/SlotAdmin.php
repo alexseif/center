@@ -10,6 +10,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
 final class SlotAdmin extends AbstractAdmin
 {
@@ -41,10 +42,23 @@ final class SlotAdmin extends AbstractAdmin
 
   protected function configureFormFields(FormMapper $formMapper): void
   {
+    $endDate = strtotime("+7 day");
     $formMapper
         ->add('name')
-        ->add('startAt')
-        ->add('endAt')
+        ->add('startAt', DateTimeType::class, [
+          'years' => range(date('Y'), date('Y', $endDate)),
+          'months' => range(date('m'), date('m', $endDate)),
+          'days' => range(date('d'), date('d', $endDate)),
+          'hours' => range(5, 11),
+          'minutes' => [0, 15, 30, 45]
+        ])
+        ->add('endAt', DateTimeType::class, [
+          'years' => range(date('Y'), date('Y', $endDate)),
+          'months' => range(date('m'), date('m', $endDate)),
+          'days' => range(date('d'), date('d', $endDate)),
+          'hours' => range(5, 11),
+          'minutes' => [0, 15, 30, 45]
+        ])
         ->add('instrument', EntityType::class, [
           'class' => \AppBundle\Entity\Instrument::class,
           'query_builder' => function(\AppBundle\Repository\InstrumentRepository $er) {
