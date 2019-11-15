@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Course
@@ -50,6 +51,14 @@ class Course
    * @ORM\OneToMany(targetEntity="CoursePrice", mappedBy="course", cascade={"persist", "remove"})
    */
   private $prices;
+
+  /**
+   * Constructor
+   */
+  public function __construct()
+  {
+    $this->prices = new \Doctrine\Common\Collections\ArrayCollection();
+  }
 
   /**
    * Get id.
@@ -133,52 +142,45 @@ class Course
     return $this->enabled;
   }
 
+  /**
+   * Add price.
+   *
+   * @param \AppBundle\Entity\CoursePrice $price
+   *
+   * @return Course
+   */
+  public function addPrice(\AppBundle\Entity\CoursePrice $price)
+  {
+    $this->prices[] = $price;
+
+    return $this;
+  }
+
+  /**
+   * Remove price.
+   *
+   * @param \AppBundle\Entity\CoursePrice $price
+   *
+   * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+   */
+  public function removePrice(\AppBundle\Entity\CoursePrice $price)
+  {
+    return $this->prices->removeElement($price);
+  }
+
+  /**
+   * Get prices.
+   *
+   * @return \Doctrine\Common\Collections\Collection
+   */
+  public function getPrices()
+  {
+    return $this->prices;
+  }
+
   public function __toString()
   {
     return $this->getName();
   }
 
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->prices = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add price.
-     *
-     * @param \AppBundle\Entity\CoursePrice $price
-     *
-     * @return Course
-     */
-    public function addPrice(\AppBundle\Entity\CoursePrice $price)
-    {
-        $this->prices[] = $price;
-
-        return $this;
-    }
-
-    /**
-     * Remove price.
-     *
-     * @param \AppBundle\Entity\CoursePrice $price
-     *
-     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
-     */
-    public function removePrice(\AppBundle\Entity\CoursePrice $price)
-    {
-        return $this->prices->removeElement($price);
-    }
-
-    /**
-     * Get prices.
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getPrices()
-    {
-        return $this->prices;
-    }
 }
