@@ -202,28 +202,4 @@ class Instrument
     return $this->getName();
   }
 
-
-    /**
-     * Set coursePrice.
-     *
-     * @param \AppBundle\Entity\CoursePrice|null $coursePrice
-     *
-     * @return Instrument
-     */
-    public function setCoursePrice(\AppBundle\Entity\CoursePrice $coursePrice = null)
-    {
-        $this->coursePrice = $coursePrice;
-
-        return $this;
-    }
-
-    /**
-     * Get coursePrice.
-     *
-     * @return \AppBundle\Entity\CoursePrice|null
-     */
-    public function getCoursePrice()
-    {
-        return $this->coursePrice;
-    }
 }

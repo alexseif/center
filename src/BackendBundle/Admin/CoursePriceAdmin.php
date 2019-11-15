@@ -9,17 +9,16 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
-final class RoomAdmin extends AbstractAdmin
+final class CoursePriceAdmin extends AbstractAdmin
 {
 
   protected function configureDatagridFilters(DatagridMapper $datagridMapper): void
   {
     $datagridMapper
         ->add('name')
+        ->add('price')
         ->add('enabled')
-        ->add('instruments')
     ;
   }
 
@@ -27,8 +26,8 @@ final class RoomAdmin extends AbstractAdmin
   {
     $listMapper
         ->add('name')
+        ->add('price')
         ->add('enabled')
-        ->add('instruments')
         ->add('_action', null, [
           'actions' => [
             'show' => [],
@@ -42,15 +41,11 @@ final class RoomAdmin extends AbstractAdmin
   protected function configureFormFields(FormMapper $formMapper): void
   {
     $formMapper
-        ->add('name')
+        ->add('course')
+        ->add('instrument')
+        ->add('tutor')
+        ->add('price')
         ->add('enabled')
-        ->add('instruments', EntityType::class, [
-          'class' => \AppBundle\Entity\Instrument::class,
-          'query_builder' => function(\AppBundle\Repository\InstrumentRepository $er) {
-            return $er->queryEnabled();
-          },
-          'multiple' => true
-        ])
     ;
   }
 
@@ -58,10 +53,12 @@ final class RoomAdmin extends AbstractAdmin
   {
     $showMapper
         ->add('name')
+        ->add('price')
         ->add('enabled')
-        ->add('instruments')
         ->add('createdAt')
         ->add('updatedAt')
+        ->add('createdBy')
+        ->add('updatedBy')
     ;
   }
 

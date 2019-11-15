@@ -70,6 +70,8 @@ final class InstrumentAdmin extends AbstractAdmin
         ->add('enabled')
         ->add('rooms')
         ->add('tutors')
+        ->add('createdAt')
+        ->add('updatedAt')
     ;
   }
 

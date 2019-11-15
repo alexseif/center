@@ -9,7 +9,6 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 final class TutorAdmin extends AbstractAdmin
 {
@@ -19,7 +18,6 @@ final class TutorAdmin extends AbstractAdmin
     $datagridMapper
         ->add('name')
         ->add('enabled')
-        ->add('instruments')
     ;
   }
 
@@ -28,7 +26,6 @@ final class TutorAdmin extends AbstractAdmin
     $listMapper
         ->add('name')
         ->add('enabled')
-        ->add('instruments')
         ->add('_action', null, [
           'actions' => [
             'show' => [],
@@ -44,13 +41,6 @@ final class TutorAdmin extends AbstractAdmin
     $formMapper
         ->add('name')
         ->add('enabled')
-        ->add('instruments', EntityType::class, [
-          'class' => \AppBundle\Entity\Instrument::class,
-          'query_builder' => function(\AppBundle\Repository\InstrumentRepository $er) {
-            return $er->queryEnabled();
-          },
-          'multiple' => true
-        ])
     ;
   }
 
@@ -59,7 +49,8 @@ final class TutorAdmin extends AbstractAdmin
     $showMapper
         ->add('name')
         ->add('enabled')
-        ->add('instruments')
+        ->add('createdAt')
+        ->add('updatedAt')
     ;
   }
 

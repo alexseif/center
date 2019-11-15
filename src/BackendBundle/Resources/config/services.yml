@@ -30,3 +30,11 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: admin, label: Course }
         public: true
+
+    backend.admin.course_price:
+        class: BackendBundle\Admin\CoursePriceAdmin
+        arguments: [~, AppBundle\Entity\CoursePrice, BackendBundle\Controller\CoursePriceAdminController]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: CoursePrice }
+        public: true
+

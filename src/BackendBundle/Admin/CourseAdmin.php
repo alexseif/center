@@ -53,6 +53,8 @@ final class CourseAdmin extends AbstractAdmin
         ->add('name')
         ->add('days')
         ->add('enabled')
+        ->add('createdAt')
+        ->add('updatedAt')
     ;
   }
 
