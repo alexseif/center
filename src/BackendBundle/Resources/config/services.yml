@@ -16,7 +16,35 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: Reservation, label: Reservation }
         public: true
+        
+    backend.scheduler.holidays:
+        class: BackendBundle\Admin\ReservationAdmin
+        arguments: [~, AppBundle\Entity\Reservation, BackendBundle\Controller\ReservationAdminController]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Reservation, label: Holidays }
+        public: true
 
+    backend.admin.reports:
+        class: BackendBundle\Admin\RoomAdmin
+        arguments: [~, AppBundle\Entity\Room, BackendBundle\Controller\RoomAdminController]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Reports, label: Reports }
+        public: true
+        
+    backend.admin.availability:
+        class: BackendBundle\Admin\RoomAdmin
+        arguments: [~, AppBundle\Entity\Room, BackendBundle\Controller\RoomAdminController]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Reports, label: Availablitiy  }
+        public: true
+        
+    backend.admin.tutors:
+        class: BackendBundle\Admin\RoomAdmin
+        arguments: [~, AppBundle\Entity\Room, BackendBundle\Controller\RoomAdminController]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Reports, label: Tutors  }
+        public: true
+        
     backend.admin.room:
         class: BackendBundle\Admin\RoomAdmin
         arguments: [~, AppBundle\Entity\Room, BackendBundle\Controller\RoomAdminController]
