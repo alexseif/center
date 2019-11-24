@@ -5,6 +5,7 @@ namespace BackendBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Timeslot\Timeslot;
 use Timeslot\TimeslotCollection;
@@ -18,7 +19,7 @@ class SchedulerController extends Controller
   /**
    * @Route("/")
    */
-  public function indexAction()
+  public function indexAction(Request $request)
   {
     $dm = $this->getDoctrine()->getManager();
     $form = $this->createFormBuilder()
@@ -32,17 +33,28 @@ class SchedulerController extends Controller
     ;
     $rooms = $dm->getRepository('AppBundle:Room')->findBy(['enabled' => true]);
 
-    $timeslot = Timeslot::create('2019-11-24 10:00:00', 0, 45);
+    $day = $request->get('day', 'sunday');
+    $days = [
+      'saturday',
+      'sunday',
+      'monday',
+      'tuesday',
+      'thursday',
+      'friday',
+    ];
+    $start = new \DateTime($day . ' next week');
+    $start->setTime(10, 00, 00);
+
+    $timeslot = Timeslot::create($start, 0, 45);
     $collection = TimeslotCollection::create($timeslot, 18);
 
 
 
-    $slots = [];
-    $slot = 45;
     return $this->render('BackendBundle:Scheduler:index.html.twig', array(
           'form' => $form->getForm()->createView(),
           'rooms' => $rooms,
-          'slot' => $slot,
+          'days' => $days,
+          'day' => $day,
           'timeslot' => $timeslot,
           'collection' => $collection
             // ...

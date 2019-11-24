@@ -1,19 +1,39 @@
 {% extends 'SonataAdminBundle::standard_layout.html.twig' %}
 
 {% block sonata_admin_content %}
-{#  {{ dump(timeslot) }}#}
-{#  {{ dump(collection) }}#}
+  {#  {{ dump(timeslot) }}#}
+  {#  {{ dump(collection) }}#}
+  <style>
+    #scheduler-list td:not(.index){background-color : green;}
+    .reserved{background-color : blue;}
+    .reserving{background-color : yellow !important;}
+  </style>
   <div class="row">
-    <div class="col-md-6">
-      {{ form_start(form) }}
+    <div class="col-md-4">
+      <form method="GET" id="days_form">
+        <div class="form-group">
+          <label>Day of the week</label>
+          <select name="day" id="days">
+            {% for d in days %}
+              <option {{ (d == day) ? 'selected'}}>{{d}}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </form>
+    </div>
+    {{ form_start(form) }}
+    <div class="col-md-4">
       {{ form_row(form.customer) }}
       <a href="{{ path('admin_app_customer_create') }}">Add Customer</a>
-      {{ form_end(form) }}
     </div>
-    <div class="col-md-6">
+    <div class="col-md-4">
+      {{ form_row(form.course) }}
+    </div>
+    <div class="col-md-12">
+
       <b>Availablitiy</b>
       <div class="availability table-responsive">
-        <table class="table table-bordered table-condensed">
+        <table class="table table-bordered table-condensed" id="scheduler-list">
           <thead>
             <tr>
               <th></th>
@@ -25,9 +45,9 @@
           <tbody>
             {% for slot in collection %}
               <tr>
-                <td>{{ slot.start|date('D d h:i') }}</td>
+                <td class='index'>{{ slot.start|date('D d h:i') }}</td>
                 {% for room in rooms %}
-                  <td></td>
+                  <td class="available"></td>
                 {% endfor %}
               </tr>
             {% endfor %}
@@ -35,10 +55,21 @@
         </table>
       </div>
     </div>
+    {{ form_end(form) }}
   </div>
+
 {% endblock %}
 {% block javascripts %}
   {{ parent() }}
   <script>
+    $(function () {
+      $('#scheduler-list td.available').click(function () {
+        $('.reserving').removeClass('reserving');
+        $(this).addClass('reserving');
+      });
+      $('#days').change(function () {
+        this.form.submit();
+      });
+    });
   </script>
 {% endblock %}
