@@ -52,3 +52,18 @@ services:
             - { name: sonata.admin, manager_type: orm, group: Admin, label: CoursePrice }
         public: true
 
+#    backend.admin.config:
+#        class: BackendBundle\Admin\ConfigAdmin
+#        arguments: [~, AppBundle\Entity\Config, BackendBundle\Controller\ConfigAdminController]
+#        tags:
+#            - { name: sonata.admin, manager_type: orm, group: Admin, label: Config }
+#        public: true
+
+    backkend.admin.working_hours:
+        class: BackendBundle\Admin\WorkingHoursAdmin
+        arguments:
+            - ~
+            - ~
+            - BackendBundle\Controller\WorkingHoursCRUDController
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Admin, label: Working Hours}

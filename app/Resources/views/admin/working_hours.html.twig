@@ -1,0 +1,17 @@
+{# templates/admin/working_hours.html.twig #}
+
+{% extends '@SonataAdmin/standard_layout.html.twig' %}
+
+{% block sonata_admin_content %}
+  {{ form_start(form) }}
+  {{ form_widget(form) }}
+  {{ form_end(form) }}
+{% endblock %}
+{% block javascripts %}
+  {{ parent() }}
+  <script>
+    $('#form_satrurday').change(function () {
+      $('#form_SaturdayFrom').hide();
+    });
+  </script>
+{% endblock %}
