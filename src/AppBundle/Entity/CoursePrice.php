@@ -45,6 +45,11 @@ class CoursePrice
   private $price;
 
   /**
+   * @ORM\OneToMany(targetEntity="Reservation", mappedBy="course", cascade={"persist", "remove"})
+   */
+  private $reservations;
+
+  /**
    * @var bool
    *
    * @ORM\Column(name="enabled", type="boolean")

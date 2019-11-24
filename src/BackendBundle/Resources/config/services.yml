@@ -2,13 +2,21 @@ services:
 #    backend.example:
 #        class: BackendBundle\Example
 #        arguments: ["@service_id", "plain_value", "%parameter%"]
+
     backend.reservation.customer:
         class: BackendBundle\Admin\CustomerAdmin
         arguments: [~, AppBundle\Entity\Customer, BackendBundle\Controller\CustomerAdminController]
         tags:
             - { name: sonata.admin, manager_type: orm, group: Reservation, label: Customer }
         public: true
-       
+
+    backend.scheduler.reservation:
+        class: BackendBundle\Admin\ReservationAdmin
+        arguments: [~, AppBundle\Entity\Reservation, BackendBundle\Controller\ReservationAdminController]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Reservation, label: Reservation }
+        public: true
+
     backend.admin.room:
         class: BackendBundle\Admin\RoomAdmin
         arguments: [~, AppBundle\Entity\Room, BackendBundle\Controller\RoomAdminController]
@@ -44,4 +52,3 @@ services:
             - { name: sonata.admin, manager_type: orm, group: Admin, label: CoursePrice }
         public: true
 
-  

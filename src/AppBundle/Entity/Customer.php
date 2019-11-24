@@ -51,6 +51,11 @@ class Customer
   private $discount;
 
   /**
+   * @ORM\OneToMany(targetEntity="Reservation", mappedBy="customer", cascade={"persist", "remove"})
+   */
+  private $reservations;
+
+  /**
    * Get id.
    *
    * @return int
@@ -161,4 +166,47 @@ class Customer
     return $this->getName();
   }
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->reservations = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add reservation.
+     *
+     * @param \AppBundle\Entity\Reservation $reservation
+     *
+     * @return Customer
+     */
+    public function addReservation(\AppBundle\Entity\Reservation $reservation)
+    {
+        $this->reservations[] = $reservation;
+
+        return $this;
+    }
+
+    /**
+     * Remove reservation.
+     *
+     * @param \AppBundle\Entity\Reservation $reservation
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeReservation(\AppBundle\Entity\Reservation $reservation)
+    {
+        return $this->reservations->removeElement($reservation);
+    }
+
+    /**
+     * Get reservations.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getReservations()
+    {
+        return $this->reservations;
+    }
 }
