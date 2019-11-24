@@ -12,7 +12,7 @@ class SchedulerController extends Controller
 {
 
   /**
-   * @Route("/index")
+   * @Route("/")
    */
   public function indexAction()
   {
