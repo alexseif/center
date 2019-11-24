@@ -2,39 +2,46 @@ services:
 #    backend.example:
 #        class: BackendBundle\Example
 #        arguments: ["@service_id", "plain_value", "%parameter%"]
-            
+    backend.reservation.customer:
+        class: BackendBundle\Admin\CustomerAdmin
+        arguments: [~, AppBundle\Entity\Customer, BackendBundle\Controller\CustomerAdminController]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Reservation, label: Customer }
+        public: true
+       
     backend.admin.room:
         class: BackendBundle\Admin\RoomAdmin
         arguments: [~, AppBundle\Entity\Room, BackendBundle\Controller\RoomAdminController]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: admin, label: Room }
+            - { name: sonata.admin, manager_type: orm, group: Admin, label: Room }
         public: true
 
     backend.admin.instrument:
         class: BackendBundle\Admin\InstrumentAdmin
         arguments: [~, AppBundle\Entity\Instrument, BackendBundle\Controller\InstrumentAdminController]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: admin, label: Instrument }
+            - { name: sonata.admin, manager_type: orm, group: Admin, label: Instrument }
         public: true
 
     backend.admin.tutor:
         class: BackendBundle\Admin\TutorAdmin
         arguments: [~, AppBundle\Entity\Tutor, BackendBundle\Controller\TutorAdminController]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: admin, label: Tutor }
+            - { name: sonata.admin, manager_type: orm, group: Admin, label: Tutor }
         public: true
 
     backend.admin.course:
         class: BackendBundle\Admin\CourseAdmin
         arguments: [~, AppBundle\Entity\Course, BackendBundle\Controller\CourseAdminController]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: admin, label: Course }
+            - { name: sonata.admin, manager_type: orm, group: Admin, label: Course }
         public: true
 
     backend.admin.course_price:
         class: BackendBundle\Admin\CoursePriceAdmin
         arguments: [~, AppBundle\Entity\CoursePrice, BackendBundle\Controller\CoursePriceAdminController]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: admin, label: CoursePrice }
+            - { name: sonata.admin, manager_type: orm, group: Admin, label: CoursePrice }
         public: true
 
+  
