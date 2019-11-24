@@ -30,6 +30,7 @@
     "friendsofsymfony/rest-bundle": "^2.5",
     "friendsofsymfony/user-bundle": "^2.1",
     "gedmo/doctrine-extensions": "^2.4",
+    "gpaddis/timeslot": "^0.2.0",
     "incenteev/composer-parameter-handler": "^2.0",
     "nelmio/api-doc-bundle": "^3.4",
     "paragonie/random_compat": "^2.0",
