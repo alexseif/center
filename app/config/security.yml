@@ -27,7 +27,7 @@ security:
         # -> custom firewall for the admin area of the URL
         backend:
             pattern:            /backend(.*)
-            context:            user
+            context:            backend
             form_login:
                 provider:       fos_userbundle
                 login_path:     /backend/login
@@ -47,7 +47,7 @@ security:
         # This part is handled by the FOS User Bundle
         main:
             pattern:             .*
-            context:             user
+            context:             customer
             form_login:
                 provider:       fos_userbundle
                 login_path:     /login
