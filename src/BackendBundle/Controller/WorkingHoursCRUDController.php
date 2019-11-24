@@ -17,9 +17,10 @@ final class WorkingHoursCRUDController extends CRUDController
   {
     $dm = $this->getDoctrine()->getManager();
     $config = $dm->getRepository('AppBundle:Config')->find(1);
+    $workingHours = json_decode($config->getValue());
     $form = $this->createFormBuilder()
 //        ->add('Saturday', CheckboxType::class)
-        ->add('SaturdayFrom', TimeType::class)
+        ->add('SaturdayFrom', TimeType::class, ['widget' => 'single_text'])
         ->add('SaturdayTo', TimeType::class)
 //        ->add('Sunday', CheckboxType::class)
         ->add('SundayFrom', TimeType::class)
