@@ -25,6 +25,7 @@ services:
             - BackendBundle\Controller\AvailabilityAdminController
         tags:
             - { name: sonata.admin, manager_type: orm, group: Reservation, label: Availability }
+        public: true
             
     backend.admin.tutors:
         class: BackendBundle\Admin\RoomAdmin

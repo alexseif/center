@@ -7,7 +7,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Blameable\Traits\BlameableEntity;
 
 /**
- * Resrvation
+ * Reservation
  *
  * @ORM\Table(name="reservation")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ReservationRepository")
@@ -38,6 +38,12 @@ class Reservation
    * @ORM\JoinColumn(name="course_price_id", referencedColumnName="id")
    */
   private $course;
+
+  /**
+   * @ORM\ManyToOne(targetEntity="Room", inversedBy="reservations")
+   * @ORM\JoinColumn(name="room_id", referencedColumnName="id")
+   */
+  private $room;
 
   /**
    * @var \DateTime
@@ -126,6 +132,30 @@ class Reservation
   public function getCourse()
   {
     return $this->course;
+  }
+
+  /**
+   * Set room.
+   *
+   * @param \AppBundle\Entity\Room|null $room
+   *
+   * @return Reservation
+   */
+  public function setRoom(\AppBundle\Entity\Room $room = null)
+  {
+    $this->room = $room;
+
+    return $this;
+  }
+
+  /**
+   * Get room.
+   *
+   * @return \AppBundle\Entity\Room|null
+   */
+  public function getRoom()
+  {
+    return $this->room;
   }
 
 }

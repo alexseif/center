@@ -31,4 +31,14 @@ class ReservationRepository extends \Doctrine\ORM\EntityRepository
             ->getResult();
   }
 
+  public function findAllWithJoins()
+  {
+    return $this->createQueryBuilder('r')
+            ->select('r, c, cp')
+            ->leftJoin('r.customer', 'c')
+            ->leftJoin('r.course', 'cp')
+            ->getQuery()
+            ->getResult();
+  }
+
 }

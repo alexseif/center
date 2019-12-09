@@ -8,5 +8,5 @@ use Sonata\AdminBundle\Controller\CRUDController;
 
 final class ReservationAdminController extends CRUDController
 {
-  
+
 }

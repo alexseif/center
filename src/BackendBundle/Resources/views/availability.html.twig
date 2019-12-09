@@ -2,69 +2,79 @@
 {% extends '@SonataAdmin/standard_layout.html.twig' %}
 
 {% block sonata_admin_content %}
+  <div class='loader'></div>
   <style>
     #availability-table td:not(.index){background-color : green; cursor: pointer; }
     #availability-table td.reserved{background-color : blue; cursor: not-allowed;}
     #availability-table td.reserving{background-color : yellow;}
   </style>
   <h3>Availability</h3>
-  <ul class="nav nav-tabs">
-    {% for key,day in daysOfTheWeek %}
-      <li class="{{ (loop.first) ? 'active' }}">
-        <a  href="#{{ key }}" data-toggle="tab">
-          {{ day }}
-          <small>{{ slots[day]|first.start|date('d/m/Y') }}</small>
-        </a>
-      </li>
-    {% endfor %}
-  </ul>
-  <div class="tab-content">
-    {% for key,day in daysOfTheWeek %}
-      <div class="tab-pane {{ (loop.first) ? 'active' }}" id="{{ key }}">
-        <h3>{{ day }} - {{ slots[day]|first.start|date('d/m/Y') }} <small>{{ slots[day]|length }} slots</small></h3>
-        <div class="table-responsive">
-          <table class="table table-bordered table-condensed table-hover table-striped" id="availability-table">
-            <thead>
-              <tr>
-                <th>Room</th>
-
-                {% for slot in slots[day] %}
-                  <th>{{ slot.start|date('H:i') }}</th>
-
-                {% endfor %}
-              </tr>
-            </thead>
-            <tbody>
-              {% for room in rooms %}
+  <div class='availability-wrapper'>
+    <ul class="nav nav-tabs">
+      {% for key,day in daysOfTheWeek %}
+        <li class="{{ (loop.first) ? 'active' }}">
+          <a  href="#{{ key }}" data-toggle="tab">
+            {{ day }}
+            <small>{{ slots[day]|first.start|date('d/m/Y') }}</small>
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+    <div class="tab-content">
+      {% for key,day in daysOfTheWeek %}
+        <div class="tab-pane {{ (loop.first) ? 'active' }}" id="{{ key }}">
+          <h3>{{ day }} - {{ slots[day]|first.start|date('d/m/Y') }} <small>{{ slots[day]|length }} slots</small></h3>
+          <div class="table-responsive">
+            <table class="table table-bordered table-condensed table-hover table-striped" id="availability-table">
+              <thead>
                 <tr>
-                  <th>{{ room }}</th>
+                  <th>Room</th>
 
                   {% for slot in slots[day] %}
-                    <td data-room='{{ room }}' data-date="{{ slot.start|date('c')}}"></td>
+                    <th>{{ slot.start|date('H:i') }}</th>
 
                   {% endfor %}
                 </tr>
-              {% endfor %}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {% for room in rooms %}
+                  <tr>
+                    <th>{{ room }}</th>
+
+                    {% for slot in slots[day] %}
+                      <td data-room='{{ room }}' data-date="{{ slot.start|date('c')}}"></td>
+
+                    {% endfor %}
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
         </div>
-      </div>
-    {% endfor %}
-  </div>
-  <div>
-    <script>
-      var reservations = [];
-      {% for reservation in reservations %}
-        reservations.push('{{reservation.start|date('c')}}');
-        {#        {{ dump(reservation) }}#}
       {% endfor %}
-        $(document).ready(function () {
-          for (let i = 0; i < reservations.length; i++) {
-            $selector = '*[data-date="' + reservations[i] + '"]';
-            console.log($selector);
-            $($selector).addClass('reserved');
-          }
-        });
-    </script>
+    </div>
   </div>
+  <div class='results'></div>
+{% endblock %}
+{% block javascripts %}
+  {{ parent() }}
+  <script>
+    function markReservations() {
+      for (let i = 0; i < reservations.length; i++) {
+        $selector = '*[data-date="' + reservations[i]['start'] + '"][data-room="' + reservations[i]['room'] + '"]';
+        console.log($selector);
+        $($selector).addClass('reserved');
+      }
+    }
+  </script>
+  <script type="text/javascript">
+    var reservations = [];
+    var get_reservations_url = '{{ path('get_reservations') }}';
+    $.get(get_reservations_url, function (data) {
+      console.log(data);
+      reservations = data['reservations'];
+      markReservations();
+    });
+
+  </script>
 {% endblock %}

@@ -19,6 +19,7 @@ final class ReservationAdmin extends AbstractAdmin
         ->add('customer')
         ->add('course')
         ->add('start')
+        ->add('room', null, array('admin_code' => 'backend.admin.room'))
     ;
   }
 
@@ -28,6 +29,7 @@ final class ReservationAdmin extends AbstractAdmin
         ->add('customer')
         ->add('course')
         ->add('start')
+        ->add('room', null, array('admin_code' => 'backend.admin.room'))
         ->add('_action', null, [
           'actions' => [
             'show' => [],
@@ -44,6 +46,9 @@ final class ReservationAdmin extends AbstractAdmin
         ->add('customer')
         ->add('course')
         ->add('start')
+        ->add('room', 'sonata_type_model', array(), array(
+          'admin_code' => 'backend.admin.room'
+        ))
     ;
   }
 
@@ -53,6 +58,7 @@ final class ReservationAdmin extends AbstractAdmin
         ->add('customer')
         ->add('course')
         ->add('start')
+        ->add('room', null, array('admin_code' => 'backend.admin.room'))
     ;
   }
 
