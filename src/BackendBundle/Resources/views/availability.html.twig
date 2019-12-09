@@ -2,5 +2,44 @@
 {% extends '@SonataAdmin/standard_layout.html.twig' %}
 
 {% block sonata_admin_content %}
-  Your content here
+  <ul class="nav nav-tabs">
+    {% for key,day in daysOfTheWeek %}
+      <li>
+        <a  href="#{{ key }}" data-toggle="tab">{{ day }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+  <div class="tab-content">
+    {% for key,day in daysOfTheWeek %}
+      <div class="tab-pane" id="{{ key }}">
+        <h3>{{ day }}</h3>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Room</th>
+
+                {% for slot in slots[day] %}
+                  <th>{{ slot.start|date('H:i') }}</th>
+
+                {% endfor %}
+              </tr>
+            </thead>
+            <tbody>
+              {% for room in rooms %}
+                <tr>
+                  <th>{{ room }}</th>
+
+                  {% for slot in slots[day] %}
+                    <td></td>
+
+                  {% endfor %}
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
 {% endblock %}
