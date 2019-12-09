@@ -51,7 +51,7 @@ class Instrument
   private $tutors;
 
   /**
-   * @ORM\OneToOne(targetEntity="CoursePrice", mappedBy="instrument", cascade={"persist"})
+   * @ORM\OneToMany(targetEntity="CoursePrice", mappedBy="instrument", cascade={"persist"})
    */
   private $coursePrice;
 

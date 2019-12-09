@@ -62,4 +62,9 @@ final class CoursePriceAdmin extends AbstractAdmin
     ;
   }
 
+  public function preValidate($coursePrice)
+  {
+    $coursePrice->setName($coursePrice->getCourse()->getName() . ' - ' . $coursePrice->getInstrument()->getName() . ' - ' . $coursePrice->getTutor()->getName());
+  }
+
 }

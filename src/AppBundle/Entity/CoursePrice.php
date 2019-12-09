@@ -63,13 +63,13 @@ class CoursePrice
   private $course;
 
   /**
-   * @ORM\OneToOne(targetEntity="Instrument", inversedBy="coursePrice", cascade={"persist"})
+   * @ORM\ManyToOne(targetEntity="Instrument", inversedBy="coursePrice", cascade={"persist"})
    * @ORM\JoinColumn(name="instrument_id", referencedColumnName="id", nullable=false)
    */
   private $instrument;
 
   /**
-   * @ORM\OneToOne(targetEntity="Tutor", inversedBy="coursePrice", cascade={"persist"})
+   * @ORM\ManyToOne(targetEntity="Tutor", inversedBy="coursePrice", cascade={"persist"})
    * @ORM\JoinColumn(name="tutor_id", referencedColumnName="id", nullable=false)
    */
   private $tutor;
