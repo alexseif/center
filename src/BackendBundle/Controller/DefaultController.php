@@ -31,7 +31,9 @@ class DefaultController extends Controller
       $tmpArr = [
         'id' => $reservation->getId(),
         'start' => $reservation->getStart()->format('c'),
-        'room' => $reservation->getRoom()->getName()
+        'room' => $reservation->getRoom()->getName(),
+        'customer' => $reservation->getCustomer()->getName(),
+        'course' => $reservation->getCourse()->getName()
       ];
       $resArr[] = $tmpArr;
     }

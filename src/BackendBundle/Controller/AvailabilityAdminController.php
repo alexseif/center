@@ -5,29 +5,53 @@ declare(strict_types = 1);
 namespace BackendBundle\Controller;
 
 use Sonata\AdminBundle\Controller\CRUDController;
-use Timeslot\Timeslot;
-use Timeslot\TimeslotCollection;
+use Symfony\Component\HttpFoundation\Request;
 use BackendBundle\Util\DateUtil;
 
 final class AvailabilityAdminController extends CRUDController
 {
 
-  public function availabilityAction()
+  public function getDaysOfTheWeek()
+  {
+    return DateUtil::getDaysOFTheWeek();
+  }
+
+  public function getRooms()
   {
     $dm = $this->getDoctrine()->getManager();
-    $rooms = $dm->getRepository('AppBundle:Room')->getEnabled();
+    return $dm->getRepository('AppBundle:Room')->getEnabled();
+  }
 
-    $daysOfTheWeek = DateUtil::getDaysOFTheWeek();
+  public function getWorkingHours()
+  {
+    $dm = $this->getDoctrine()->getManager();
     $config = $dm->getRepository('AppBundle:Config')->find(1);
+
     $workingHours = [];
     if ($config->getValue()) {
       $workingHours = json_decode($config->getValue(), true);
     } else {
       throw $this->createNotFoundException('Please configure your Working Hours');
     }
+    return $workingHours;
+  }
+
+  public function availabilityAction(Request $request)
+  {
+    $dm = $this->getDoctrine()->getManager();
+
+    $newReservation = new \AppBundle\Entity\Reservation();
+    $reservationForm = $this->createForm(\AppBundle\Form\ReservationType::class, $newReservation)
+        ->add('Reserve', \Symfony\Component\Form\Extension\Core\Type\SubmitType::class)
+    ;
+    $daysOfTheWeek = $this->getDaysOfTheWeek();
+    $rooms = $this->getRooms();
+    $workingHours = $this->getWorkingHours();
+
+    /** Calculate slots and Work days */
     $rules = [];
     $slots = [];
-    $weekPeriod;
+    $weekPeriod = [];
     foreach ($daysOfTheWeek as $key => $day) {
       if ($workingHours[$day]) {
         $startDate = new \DateTime($day . ' next week');
@@ -51,18 +75,27 @@ final class AvailabilityAdminController extends CRUDController
       }
     }
     ksort($weekPeriod);
+    //    $nextWeek = new \DateTime(reset($daysOfTheWeek) . ' next week');
+    //    $nextWeek->add(new \DateInterval('P1W'));
+    //    dump($nextWeek->format('d-m-y'));
     $reservations = $dm->getRepository('AppBundle:Reservation')->getByRange(reset($weekPeriod)['start'], end($weekPeriod)['end']);
-//    foreach ($rules as $key => $rule) {
-//      foreach ($reservations as $reservation) {
-//        $rules[$key]->setExDates([$reservation->getStart()->format('c')]);
-//      }
-//    }
+
+    $reservationForm->handleRequest($request);
+    if ($reservationForm->isSubmitted() && $reservationForm->isValid()) {
+      $newReservation->setRoom($dm->getRepository('AppBundle:Room')->findOneBy(['name' => $reservationForm->get('room')->getData(), 'enabled' => true]));
+      $newReservation->setStart(new \DateTime($reservationForm->get('start')->getData()));
+      if ($newReservation->getCustomer() && $newReservation->getCourse()) {
+        $dm->persist($newReservation);
+        $dm->flush();
+      }
+    }
 
     return $this->renderWithExtraParams('BackendBundle::availability.html.twig', [
           'daysOfTheWeek' => $daysOfTheWeek,
           'rooms' => $rooms,
           'slots' => $slots,
-          'reservations' => $reservations
+          'reservations' => $reservations,
+          'reservationFrom' => $reservationForm->createView()
     ]);
   }
 

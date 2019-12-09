@@ -4,11 +4,13 @@
 {% block sonata_admin_content %}
   <div class='loader'></div>
   <style>
-    #availability-table td:not(.index){background-color : green; cursor: pointer; }
-    #availability-table td.reserved{background-color : blue; cursor: not-allowed;}
-    #availability-table td.reserving{background-color : yellow;}
+    #availability-table td:not(.index){background-color : #dff0d8; cursor: pointer; }
+    #availability-table td.reserved{background-color : #337ab7; color: white; cursor: not-allowed;}
+    #availability-table td.reserving{background-color : #fcf8e3;}
+    #availability-table td.danger{background-color : #f2dede;}
   </style>
   <h3>Availability</h3>
+  {#  <a href='prev-week'><- Previous Week</a> -- <a href='next-week'>Next Week -></a>#}
   <div class='availability-wrapper'>
     <ul class="nav nav-tabs">
       {% for key,day in daysOfTheWeek %}
@@ -54,6 +56,7 @@
       {% endfor %}
     </div>
   </div>
+  {{ form(reservationFrom) }}
   <div class='results'></div>
 {% endblock %}
 {% block javascripts %}
@@ -63,18 +66,38 @@
       for (let i = 0; i < reservations.length; i++) {
         $selector = '*[data-date="' + reservations[i]['start'] + '"][data-room="' + reservations[i]['room'] + '"]';
         console.log($selector);
-        $($selector).addClass('reserved');
+        $($selector)
+                .addClass('reserved')
+                .html(reservations[i]['customer'] + '<br/>' + reservations[i]['course']);
       }
+    }
+    function makeReservation(room, date) {
+      $('#appbundle_reservation_start').val(date);
+      $('#appbundle_reservation_room').val(room);
+
     }
   </script>
   <script type="text/javascript">
     var reservations = [];
     var get_reservations_url = '{{ path('get_reservations') }}';
-    $.get(get_reservations_url, function (data) {
-      console.log(data);
-      reservations = data['reservations'];
-      markReservations();
+    $(document).ready(function () {
+      $.get(get_reservations_url, function (data) {
+        reservations = data['reservations'];
+        markReservations();
+      });
     });
-
+  </script>
+  <script>
+    $(document).ready(function () {
+      $('#appbundle_reservation_customer').prop('disabled', true);
+        $('#appbundle_reservation_course').prop('disabled', true);
+      $('#availability-table td').click(function () {
+        $('#availability-table td').removeClass('reserving');
+        $(this).addClass('reserving');
+        $('#appbundle_reservation_customer').prop('disabled', false);
+        $('#appbundle_reservation_course').prop('disabled', false);
+        makeReservation($(this).data('room'), $(this).data('date'))
+      });
+    });
   </script>
 {% endblock %}
