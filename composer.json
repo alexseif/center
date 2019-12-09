@@ -36,6 +36,7 @@
     "paragonie/random_compat": "^2.0",
     "sensio/distribution-bundle": "^5.0.19",
     "sensio/framework-extra-bundle": "^5.0.0",
+    "simshaun/recurr": "^4.0",
     "sonata-project/admin-bundle": "^3.54",
     "sonata-project/doctrine-orm-admin-bundle": "^3.10",
     "sonata-project/google-authenticator": "^2.2",
