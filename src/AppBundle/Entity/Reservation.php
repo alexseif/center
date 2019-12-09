@@ -40,25 +40,11 @@ class Reservation
   private $course;
 
   /**
-   * @var \stdClass
-   *
-   * @ORM\Column(name="slot", type="object")
-   */
-  private $slot;
-
-  /**
    * @var \DateTime
    *
    * @ORM\Column(name="start", type="datetime")
    */
   private $start;
-
-  /**
-   * @var \DateTime
-   *
-   * @ORM\Column(name="end", type="datetime")
-   */
-  private $end;
 
   /**
    * Get id.
@@ -68,30 +54,6 @@ class Reservation
   public function getId()
   {
     return $this->id;
-  }
-
-  /**
-   * Set slot.
-   *
-   * @param \stdClass $slot
-   *
-   * @return Resrvation
-   */
-  public function setSlot($slot)
-  {
-    $this->slot = $slot;
-
-    return $this;
-  }
-
-  /**
-   * Get slot.
-   *
-   * @return \stdClass
-   */
-  public function getSlot()
-  {
-    return $this->slot;
   }
 
   /**
@@ -116,30 +78,6 @@ class Reservation
   public function getStart()
   {
     return $this->start;
-  }
-
-  /**
-   * Set end.
-   *
-   * @param \DateTime $end
-   *
-   * @return Resrvation
-   */
-  public function setEnd($end)
-  {
-    $this->end = $end;
-
-    return $this;
-  }
-
-  /**
-   * Get end.
-   *
-   * @return \DateTime
-   */
-  public function getEnd()
-  {
-    return $this->end;
   }
 
   /**

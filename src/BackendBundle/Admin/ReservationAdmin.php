@@ -18,9 +18,7 @@ final class ReservationAdmin extends AbstractAdmin
     $datagridMapper
         ->add('customer')
         ->add('course')
-        ->add('slot')
         ->add('start')
-        ->add('end')
     ;
   }
 
@@ -29,9 +27,7 @@ final class ReservationAdmin extends AbstractAdmin
     $listMapper
         ->add('customer')
         ->add('course')
-        ->add('slot')
         ->add('start')
-        ->add('end')
         ->add('_action', null, [
           'actions' => [
             'show' => [],
@@ -48,7 +44,6 @@ final class ReservationAdmin extends AbstractAdmin
         ->add('customer')
         ->add('course')
         ->add('start')
-        ->add('end')
     ;
   }
 
@@ -57,9 +52,7 @@ final class ReservationAdmin extends AbstractAdmin
     $showMapper
         ->add('customer')
         ->add('course')
-        ->add('slot')
         ->add('start')
-        ->add('end')
     ;
   }
 
