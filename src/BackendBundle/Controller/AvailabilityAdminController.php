@@ -25,27 +25,44 @@ final class AvailabilityAdminController extends CRUDController
     } else {
       throw $this->createNotFoundException('Please configure your Working Hours');
     }
+    $rules = [];
     $slots = [];
+    $weekPeriod;
     foreach ($daysOfTheWeek as $key => $day) {
-      $result = array_search($day, $workingHours);
       if ($workingHours[$day]) {
-        $start = new \DateTime($day . ' next week');
-        $end = new \DateTime($day . ' next week');
-        $start->setTime((int) $workingHours[$day . "From"]['hour'], (int) $workingHours[$day . "From"]['minute'], 00);
-        $end->setTime((int) $workingHours[$day . "To"]['hour'], (int) $workingHours[$day . "To"]['minute'], 00);
-        $timeDiff = ($end->diff($start, true));
-        $slotsCount = (int) ceil($timeDiff->h / 0.75);
-        $timeslot = Timeslot::create($start, 0, 45);
-        $collection = TimeslotCollection::create($timeslot, $slotsCount);
-        $slots[$day] = $collection;
+        $startDate = new \DateTime($day . ' next week');
+        $startDate->setTime((int) $workingHours[$day . "From"]['hour'], (int) $workingHours[$day . "From"]['minute'], 00);
+        $endDate = new \DateTime($day . ' next week');
+        $endDate->setTime((int) $workingHours[$day . "To"]['hour'], (int) $workingHours[$day . "To"]['minute'], 00);
+        $weekPeriod[$startDate->format('d')]['start'] = $startDate;
+        $weekPeriod[$startDate->format('d')]['end'] = $endDate;
+        $rule = (new \Recurr\Rule())
+            ->setWeekStart('SA')
+            ->setStartDate($startDate)
+            ->setUntil($endDate)
+            ->setFreq('MINUTELY')
+            ->setInterval(45)
+        ;
+        $rules[] = $rule;
+        $transformer = new \Recurr\Transformer\ArrayTransformer();
+        $slots[$day] = $transformer->transform($rule);
       } else {
         unset($daysOfTheWeek[$key]);
       }
     }
+    ksort($weekPeriod);
+    $reservations = $dm->getRepository('AppBundle:Reservation')->getByRange(reset($weekPeriod)['start'], end($weekPeriod)['end']);
+//    foreach ($rules as $key => $rule) {
+//      foreach ($reservations as $reservation) {
+//        $rules[$key]->setExDates([$reservation->getStart()->format('c')]);
+//      }
+//    }
+
     return $this->renderWithExtraParams('BackendBundle::availability.html.twig', [
           'daysOfTheWeek' => $daysOfTheWeek,
           'rooms' => $rooms,
-          'slots' => $slots
+          'slots' => $slots,
+          'reservations' => $reservations
     ]);
   }
 

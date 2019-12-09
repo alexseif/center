@@ -2,20 +2,28 @@
 {% extends '@SonataAdmin/standard_layout.html.twig' %}
 
 {% block sonata_admin_content %}
+  <style>
+    #availability-table td:not(.index){background-color : green; cursor: pointer; }
+    #availability-table td.reserved{background-color : blue; cursor: not-allowed;}
+    #availability-table td.reserving{background-color : yellow;}
+  </style>
   <h3>Availability</h3>
   <ul class="nav nav-tabs">
     {% for key,day in daysOfTheWeek %}
       <li class="{{ (loop.first) ? 'active' }}">
-        <a  href="#{{ key }}" data-toggle="tab">{{ day }}</a>
+        <a  href="#{{ key }}" data-toggle="tab">
+          {{ day }}
+          <small>{{ slots[day]|first.start|date('d/m/Y') }}</small>
+        </a>
       </li>
     {% endfor %}
   </ul>
   <div class="tab-content">
     {% for key,day in daysOfTheWeek %}
       <div class="tab-pane {{ (loop.first) ? 'active' }}" id="{{ key }}">
-        <h3>{{ day }}</h3>
+        <h3>{{ day }} - {{ slots[day]|first.start|date('d/m/Y') }} <small>{{ slots[day]|length }} slots</small></h3>
         <div class="table-responsive">
-          <table class="table">
+          <table class="table table-bordered table-condensed table-hover table-striped" id="availability-table">
             <thead>
               <tr>
                 <th>Room</th>
@@ -32,7 +40,7 @@
                   <th>{{ room }}</th>
 
                   {% for slot in slots[day] %}
-                    <td></td>
+                    <td data-room='{{ room }}' data-date="{{ slot.start|date('c')}}"></td>
 
                   {% endfor %}
                 </tr>
@@ -42,5 +50,21 @@
         </div>
       </div>
     {% endfor %}
+  </div>
+  <div>
+    <script>
+      var reservations = [];
+      {% for reservation in reservations %}
+        reservations.push('{{reservation.start|date('c')}}');
+        {#        {{ dump(reservation) }}#}
+      {% endfor %}
+        $(document).ready(function () {
+          for (let i = 0; i < reservations.length; i++) {
+            $selector = '*[data-date="' + reservations[i] + '"]';
+            console.log($selector);
+            $($selector).addClass('reserved');
+          }
+        });
+    </script>
   </div>
 {% endblock %}
