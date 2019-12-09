@@ -17,4 +17,12 @@ class RoomRepository extends \Doctrine\ORM\EntityRepository
             ->where('r.enabled = true');
   }
 
+  public function getEnabled()
+  {
+    return $this
+            ->queryEnabled()
+            ->getQuery()
+            ->getResult();
+  }
+
 }
