@@ -17,29 +17,32 @@ final class WorkingHoursCRUDController extends CRUDController
   {
     $dm = $this->getDoctrine()->getManager();
     $config = $dm->getRepository('AppBundle:Config')->find(1);
-    $workingHours = json_decode($config->getValue());
-    $form = $this->createFormBuilder()
-//        ->add('Saturday', CheckboxType::class)
-        ->add('SaturdayFrom', TimeType::class, ['widget' => 'single_text'])
-        ->add('SaturdayTo', TimeType::class)
-//        ->add('Sunday', CheckboxType::class)
-        ->add('SundayFrom', TimeType::class)
-        ->add('SundayTo', TimeType::class)
-//        ->add('Monday', CheckboxType::class)
-        ->add('MondayFrom', TimeType::class)
-        ->add('MondayTo', TimeType::class)
-//        ->add('Tuesday', CheckboxType::class)
-        ->add('TuesdayFrom', TimeType::class)
-        ->add('TuesdayTo', TimeType::class)
-//        ->add('Wednesday', CheckboxType::class)
-        ->add('WednesedayFrom', TimeType::class)
-        ->add('WednesdayTo', TimeType::class)
-//        ->add('Thursday', CheckboxType::class)
-        ->add('ThursdayFrom', TimeType::class)
-        ->add('ThursdayTo', TimeType::class)
-//        ->add('Friday', CheckboxType::class)
-        ->add('FridayFrom', TimeType::class)
-        ->add('FridayTo', TimeType::class)
+    $workingHours = [];
+    if ($config->getValue()) {
+      $workingHours = json_decode($config->getValue(), true);
+    }
+    $form = $this->createFormBuilder($workingHours)
+        ->add('Saturday', CheckboxType::class, ['required' => false, 'attr' => ['class' => 'sat']])
+        ->add('SaturdayFrom', TimeType::class, ['input' => 'array', 'widget' => 'single_text', 'required' => false, 'attr' => ['class' => 'sat']])
+        ->add('SaturdayTo', TimeType::class, ['input' => 'array', 'widget' => 'single_text', 'required' => false, 'attr' => ['class' => 'sat']])
+        ->add('Sunday', CheckboxType::class, ['required' => false, 'attr' => ['class' => 'sun']])
+        ->add('SundayFrom', TimeType::class, ['input' => 'array', 'widget' => 'single_text', 'required' => false, 'attr' => ['class' => 'sun']])
+        ->add('SundayTo', TimeType::class, ['input' => 'array', 'widget' => 'single_text', 'required' => false, 'attr' => ['class' => 'sun']])
+        ->add('Monday', CheckboxType::class, ['required' => false, 'attr' => ['class' => 'mon']])
+        ->add('MondayFrom', TimeType::class, ['input' => 'array', 'widget' => 'single_text', 'required' => false, 'attr' => ['class' => 'mon']])
+        ->add('MondayTo', TimeType::class, ['input' => 'array', 'widget' => 'single_text', 'required' => false, 'attr' => ['class' => 'mon']])
+        ->add('Tuesday', CheckboxType::class, ['required' => false, 'attr' => ['class' => 'tue']])
+        ->add('TuesdayFrom', TimeType::class, ['input' => 'array', 'widget' => 'single_text', 'required' => false, 'attr' => ['class' => 'tue']])
+        ->add('TuesdayTo', TimeType::class, ['input' => 'array', 'widget' => 'single_text', 'required' => false, 'attr' => ['class' => 'tue']])
+        ->add('Wednesday', CheckboxType::class, ['required' => false, 'attr' => ['class' => 'wed']])
+        ->add('WednesdayFrom', TimeType::class, ['input' => 'array', 'widget' => 'single_text', 'required' => false, 'attr' => ['class' => 'wed']])
+        ->add('WednesdayTo', TimeType::class, ['input' => 'array', 'widget' => 'single_text', 'required' => false, 'attr' => ['class' => 'wed']])
+        ->add('Thursday', CheckboxType::class, ['required' => false, 'attr' => ['class' => 'thu']])
+        ->add('ThursdayFrom', TimeType::class, ['input' => 'array', 'widget' => 'single_text', 'required' => false, 'attr' => ['class' => 'thu']])
+        ->add('ThursdayTo', TimeType::class, ['input' => 'array', 'widget' => 'single_text', 'required' => false, 'attr' => ['class' => 'thu']])
+        ->add('Friday', CheckboxType::class, ['required' => false, 'attr' => ['class' => 'fri']])
+        ->add('FridayFrom', TimeType::class, ['input' => 'array', 'widget' => 'single_text', 'required' => false, 'attr' => ['class' => 'fri']])
+        ->add('FridayTo', TimeType::class, ['input' => 'array', 'widget' => 'single_text', 'required' => false, 'attr' => ['class' => 'fri']])
         ->add('save', SubmitType::class)
         ->getForm();
 

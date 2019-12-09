@@ -4,14 +4,107 @@
 
 {% block sonata_admin_content %}
   {{ form_start(form) }}
-  {{ form_widget(form) }}
+  <div class="form-group">
+    <div class="row">
+      <div class="col-md-2">
+        {{ form_row(form.Saturday) }}
+      </div>
+      <div class="col-md-5">
+        {{ form_row(form.SaturdayFrom) }}
+      </div>
+      <div class="col-md-5">
+        {{ form_row(form.SaturdayTo) }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        {{ form_row(form.Sunday) }}
+      </div>
+      <div class="col-md-5">
+        {{ form_row(form.SundayFrom) }}
+      </div>
+      <div class="col-md-5">
+        {{ form_row(form.SundayTo) }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        {{ form_row(form.Monday) }}
+      </div>
+      <div class="col-md-5">
+        {{ form_row(form.MondayFrom) }}
+      </div>
+      <div class="col-md-5">
+        {{ form_row(form.MondayTo) }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        {{ form_row(form.Tuesday) }}
+      </div>
+      <div class="col-md-5">
+        {{ form_row(form.TuesdayFrom) }}
+      </div>
+      <div class="col-md-5">
+        {{ form_row(form.TuesdayTo) }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        {{ form_row(form.Wednesday) }}
+      </div>
+      <div class="col-md-5">
+        {{ form_row(form.WednesdayFrom) }}
+      </div>
+      <div class="col-md-5">
+        {{ form_row(form.WednesdayTo) }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        {{ form_row(form.Thursday) }}
+      </div>
+      <div class="col-md-5">
+        {{ form_row(form.ThursdayFrom) }}
+      </div>
+      <div class="col-md-5">
+        {{ form_row(form.ThursdayTo) }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        {{ form_row(form.Friday) }}
+      </div>
+      <div class="col-md-5">
+        {{ form_row(form.FridayFrom) }}
+      </div>
+      <div class="col-md-5">
+        {{ form_row(form.FridayTo) }}
+      </div>
+    </div>
+  </div>
   {{ form_end(form) }}
 {% endblock %}
 {% block javascripts %}
   {{ parent() }}
   <script>
-    $('#form_satrurday').change(function () {
-      $('#form_SaturdayFrom').hide();
+    $(document).ready(function () {
+      $('input[type="checkbox"]').change(function () {
+        $inputSelector = 'input[type="time"].' + $(this).attr('class');
+        if (this.checked) {
+          $($inputSelector).prop('disabled', false);
+        } else {
+          $($inputSelector).prop('disabled', true);
+        }
+      });
+      $('input[type="checkbox"]').each(function () {
+        $inputSelector = 'input[type="time"].' + $(this).attr('class');
+        if (this.checked) {
+          $($inputSelector).prop('disabled', false);
+        } else {
+          $($inputSelector).prop('disabled', true);
+        }
+      });
     });
   </script>
 {% endblock %}
