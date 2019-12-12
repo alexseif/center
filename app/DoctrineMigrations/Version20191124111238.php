@@ -25,7 +25,7 @@ final class Version20191124111238 extends AbstractMigration
         // $this->addSql('DROP INDEX UNIQ_81398E09A0D96FBF ON customer');
         // $this->addSql('DROP INDEX UNIQ_81398E0992FC23A8 ON customer');
         // $this->addSql('DROP INDEX UNIQ_81398E09C05FB297 ON customer');
-        $this->addSql('ALTER TABLE customer ADD mobile VARCHAR(255) NOT NULL, DROP username, DROP username_canonical, DROP email_canonical, DROP enabled, DROP salt, DROP last_login, DROP confirmation_token, DROP password_requested_at, DROP roles, CHANGE email email VARCHAR(255) NOT NULL, CHANGE password name VARCHAR(255) NOT NULL');
+        // $this->addSql('ALTER TABLE customer ADD mobile VARCHAR(255) NOT NULL, DROP username, DROP username_canonical, DROP email_canonical, DROP enabled, DROP salt, DROP last_login, DROP confirmation_token, DROP password_requested_at, DROP roles, CHANGE email email VARCHAR(255) NOT NULL, CHANGE password name VARCHAR(255) NOT NULL');
     }
 
     public function down(Schema $schema) : void
