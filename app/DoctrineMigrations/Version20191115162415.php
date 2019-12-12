@@ -35,8 +35,8 @@ final class Version20191115162415 extends AbstractMigration
         // $this->addSql('ALTER TABLE acl_entries ADD CONSTRAINT FK_46C8B806EA000B10 FOREIGN KEY (class_id) REFERENCES acl_classes (id) ON UPDATE CASCADE ON DELETE CASCADE');
         // $this->addSql('ALTER TABLE acl_entries ADD CONSTRAINT FK_46C8B8063D9AB4A6 FOREIGN KEY (object_identity_id) REFERENCES acl_object_identities (id) ON UPDATE CASCADE ON DELETE CASCADE');
         $this->addSql('ALTER TABLE acl_entries ADD CONSTRAINT FK_46C8B806DF9183C9 FOREIGN KEY (security_identity_id) REFERENCES acl_security_identities (id) ON UPDATE CASCADE ON DELETE CASCADE');
-        $this->addSql('DROP TABLE instrument');
-        $this->addSql('DROP TABLE room');
+        // $this->addSql('DROP TABLE instrument');
+        // $this->addSql('DROP TABLE room');
     }
 
     public function down(Schema $schema) : void
