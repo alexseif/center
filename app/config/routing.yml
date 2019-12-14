@@ -7,16 +7,16 @@
 app:
     resource: '@AppBundle/Controller/'
     type: annotation
-    schemes:  ['%httpprotocol%']
+#    schemes:  ['%httpprotocol%']
     
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
-    schemes:  ['%httpprotocol%']
+#    schemes:  ['%httpprotocol%']
     
 fos_user_group:
     resource: "@FOSUserBundle/Resources/config/routing/group.xml"
     prefix: /group
-    schemes:  ['%httpprotocol%']
+#    schemes:  ['%httpprotocol%']
     
 # config/routes/sonata_admin.yaml
 
@@ -40,5 +40,5 @@ sonata_user_admin_resetting:
 backend:
     resource: '@BackendBundle/Controller/'
     type: annotation
-    schemes:  ['%httpprotocol%']
+#    schemes:  ['%httpprotocol%']
     prefix: /backend
